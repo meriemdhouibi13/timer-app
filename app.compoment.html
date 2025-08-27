@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+  
+  <div class="setup-panel">
+    <div class="form-group">
+      <label for="arraySize">Array Size:</label>
+      <input type="number" id="arraySize" [(ngModel)]="arraySize" min="10" max="10000" />
+    </div>
+    
+    <div class="form-group">
+      <label for="algorithm">Algorithm:</label>
+      <select id="algorithm" [(ngModel)]="algorithmType">
+        <option value="bubble">Bubble Sort</option>
+        <option value="quick">Quick Sort</option>
+      </select>
+    </div>
+    
+    <button (click)="generateArray()" [disabled]="isRunning">Generate New Array</button>
+    <button (click)="runSortingAlgorithm()" [disabled]="isRunning">Run Sort</button>
+  </div>
+  
+  <div class="results-panel">
+    <div *ngIf="executionTime > 0" class="result">
+      <h2>Results</h2>
+      <p>Execution time: {{ executionTime.toFixed(2) }} ms</p>
+      <p>Algorithm: {{ algorithmType === 'bubble' ? 'Bubble Sort' : 'Quick Sort' }}</p>
+      <p>Array size: {{ arraySize }}</p>
+    </div>
+    
+    <div class="arrays">
+      <div class="array-container" *ngIf="unsortedArray.length > 0">
+        <h3>Unsorted Array (first 10 items)</h3>
+        <pre>{{ unsortedArray.slice(0, 10).join(', ') }}{{ unsortedArray.length > 10 ? ', ...' : '' }}</pre>
+      </div>
+      
+      <div class="array-container" *ngIf="sortedArray.length > 0">
+        <h3>Sorted Array (first 10 items)</h3>
+        <pre>{{ sortedArray.slice(0, 10).join(', ') }}{{ sortedArray.length > 10 ? ', ...' : '' }}</pre>
+      </div>
+    </div>
+  </div>
+</div>
